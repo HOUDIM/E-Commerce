@@ -6,8 +6,17 @@ import { RegisterComponent } from './features/auth/register/register.component';
 import { CartComponent } from './features/cart/cart.component';
 import { ProductListComponent } from './features/products/product-list/product-list.component';
 import { OrderConfirmationComponent } from './features/orders/order-confirmation/order-confirmation.component';
+import { CategoryListComponent } from './features/categories/category-list/category-list.component';
+import { CategoryAdminComponent } from './features/admin/categories/category-admin/category-admin.component';
+import { AdminGuard } from './core/guards/admin.guard';
+import { ProductAdminComponent } from './features/admin/products/product-admin/product-admin.component';
+import { HomeComponent } from './features/home/home.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent
+  },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { 
@@ -15,12 +24,26 @@ const routes: Routes = [
     component: ProductListComponent, 
     canActivate: [AuthGuard] 
   },
-  { path: '', redirectTo: '/products', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'cart', component: CartComponent },
   { 
     path: 'order-confirmation', 
     component: OrderConfirmationComponent,
     canActivate: [AuthGuard] 
+  },
+  {
+    path: 'categories',
+    component: CategoryListComponent
+  },
+  {
+    path: 'admin/categories',
+    component: CategoryAdminComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'admin/products',
+    component: ProductAdminComponent,
+    canActivate: [AuthGuard, AdminGuard]
   }
 ];
 

@@ -36,4 +36,12 @@ export class ProductService {
       params: { query }
     });
   }
+
+  getFeaturedProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.apiUrl}/featured`);
+  }
+
+  getNewArrivals(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.apiUrl}/new-arrivals`);
+  }
 }

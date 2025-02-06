@@ -23,6 +23,12 @@ import { HeaderComponent } from './core/components/header/header.component';
 import { FooterComponent } from './core/components/footer/footer.component';
 import { ClickOutsideDirective } from './shared/directives/click-outside.directive';
 import { StripePaymentComponent } from './features/checkout/stripe-payment/stripe-payment.component';
+import { HomeComponent } from './features/home/home.component';
+import { ProductCardComponent } from './shared/components/product-card/product-card.component';
+import { CategoryListComponent } from './features/categories/category-list/category-list.component';
+import { CategoryAdminComponent } from './features/admin/categories/category-admin/category-admin.component';
+import { ProductAdminComponent } from './features/admin/products/product-admin/product-admin.component';
+
 
 
 @NgModule({
@@ -38,7 +44,12 @@ import { StripePaymentComponent } from './features/checkout/stripe-payment/strip
     HeaderComponent,
     FooterComponent,
     ClickOutsideDirective,
-    StripePaymentComponent
+    StripePaymentComponent,
+    HomeComponent,
+    ProductCardComponent,
+    CategoryListComponent,
+    CategoryAdminComponent,
+    ProductAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +61,8 @@ import { StripePaymentComponent } from './features/checkout/stripe-payment/strip
     //SharedModule
     CommonModule,
     ToastrModule.forRoot(),
-    FormsModule
+    FormsModule,
+    
   ],
   exports: [
     HeaderComponent,

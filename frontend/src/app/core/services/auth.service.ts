@@ -27,4 +27,14 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
   }
+  
+  isAdmin(): boolean {
+    const user = this.getCurrentUser();
+    return user?.role === 'admin';
+  }
+
+  private getCurrentUser() {
+    const userStr = localStorage.getItem('user');
+    return userStr ? JSON.parse(userStr) : null;
+  }
 }

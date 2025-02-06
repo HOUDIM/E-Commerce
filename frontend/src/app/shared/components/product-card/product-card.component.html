@@ -1,0 +1,11 @@
+<!-- src/app/shared/components/product-card/product-card.component.html -->
+<div class="card product-card h-100">
+    <img [src]="product.imageUrl" [alt]="product.name" class="card-img-top">
+    <div class="card-body">
+      <h5 class="card-title">{{product.name}}</h5>
+      <p class="card-text price">{{product.price | currency:'EUR'}}</p>
+      <button class="btn btn-primary" (click)="addToCart()">
+        Ajouter au panier
+      </button>
+    </div>
+  </div>

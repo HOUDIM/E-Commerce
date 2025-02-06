@@ -28,6 +28,14 @@ mongoose.connect(process.env.MONGO_URI, {
 const authRoutes = require('./routes/authRoutes');
 app.use('/api/auth', authRoutes);
 
+app.use('/api/products', productRoutes);
+
+app.use('/api/orders', orderRoutes);
+
+app.use('/api/payments', paymentRoutes);
+
+
+
 // Gestion des erreurs globales
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -38,11 +46,7 @@ app.use((err, req, res, next) => {
 });
 
 
-app.use('/api/products', productRoutes);
 
-app.use('/api/orders', orderRoutes);
-
-app.use('/api/payments', paymentRoutes);
 
 // Démarrage du serveur
 const PORT = process.env.PORT || 5000;

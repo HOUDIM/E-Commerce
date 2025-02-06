@@ -4,7 +4,8 @@ const bcrypt = require('bcryptjs');
 
 exports.register = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, role } = req.body;
+    console.log('Registration attempt:', { username, email, role }); // Pour le debug
     
     // Vérification si l'utilisateur existe déjà
     const existingUser = await User.findOne({ email });
@@ -13,7 +14,7 @@ exports.register = async (req, res) => {
     }
 
     // Créer un nouvel utilisateur
-    const user = new User({ username, email, password });
+    const user = new User({ username, email, password, role: role || 'user' });
     await user.save();
 
     // Générer un token JWT
