@@ -1,0 +1,107 @@
+<div class="container mt-4">
+    <!-- Loading Spinner -->
+    <div *ngIf="loading" class="text-center my-5">
+      <div class="spinner-border text-primary"></div>
+    </div>
+  
+    <!-- Empty Cart -->
+    <div *ngIf="!loading && (!cart || cart.items.length === 0)" class="text-center my-5">
+      <h2>Votre panier est vide</h2>
+      <p class="text-muted">Parcourez notre catalogue pour trouver des produits intéressants</p>
+      <button class="btn btn-primary mt-3" (click)="continueShopping()">
+        <i class="bi bi-shop"></i> Continuer les achats
+      </button>
+    </div>
+  
+    <!-- Cart Content -->
+    <div *ngIf="!loading && cart && cart.items.length > 0" class="row">
+      <!-- Cart Items -->
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">Panier ({{cart.totalItems}} articles)</h3>
+            <button class="btn btn-outline-danger btn-sm" (click)="clearCart()">
+              <i class="bi bi-trash"></i> Vider le panier
+            </button>
+          </div>
+          <div class="card-body">
+            <!-- Cart Items List -->
+            <div class="cart-items">
+              <div *ngFor="let item of cart.items" class="cart-item mb-3 p-3 border-bottom">
+                <div class="row align-items-center">
+                  <!-- Product Image -->
+                  <div class="col-md-2">
+                    <img [src]="item.product.imageUrl" [alt]="item.product.name" class="img-fluid">
+                  </div>
+                  
+                  <!-- Product Details -->
+                  <div class="col-md-4">
+                    <h5>{{item.product.name}}</h5>
+                    <p class="text-muted mb-0">Prix unitaire: {{item.product.price | currency:'EUR'}}</p>
+                  </div>
+                  
+                  <!-- Quantity Controls -->
+                  <div class="col-md-3">
+                    <div class="input-group">
+                      <button class="btn btn-outline-secondary" 
+                              (click)="updateQuantity(item, item.quantity - 1)"
+                              [disabled]="item.quantity <= 1">
+                        <i class="bi bi-dash"></i>
+                      </button>
+                      <input type="number" class="form-control text-center" 
+                             [value]="item.quantity"
+                             (change)="updateQuantity(item, $any($event).target.value)"
+                             min="1" [max]="item.product.stock">
+                      <button class="btn btn-outline-secondary"
+                              (click)="updateQuantity(item, item.quantity + 1)"
+                              [disabled]="item.quantity >= item.product.stock">
+                        <i class="bi bi-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <!-- Subtotal and Remove -->
+                  <div class="col-md-3 text-end">
+                    <p class="mb-2">{{item.product.price * item.quantity | currency:'EUR'}}</p>
+                    <button class="btn btn-outline-danger btn-sm" (click)="removeItem(item.product._id)">
+                      <i class="bi bi-trash"></i> Supprimer
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Order Summary -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="mb-0">Récapitulatif</h3>
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-between mb-3">
+              <span>Sous-total</span>
+              <span>{{cart.totalPrice | currency:'EUR'}}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+              <span>Livraison</span>
+              <span>Gratuite</span>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between mb-3">
+              <strong>Total</strong>
+              <strong>{{cart.totalPrice | currency:'EUR'}}</strong>
+            </div>
+            <button class="btn btn-primary w-100" (click)="checkout()">
+              Procéder au paiement
+            </button>
+            <button class="btn btn-outline-secondary w-100 mt-2" (click)="continueShopping()">
+              Continuer les achats
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

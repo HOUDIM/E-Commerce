@@ -1,0 +1,89 @@
+<div class="container mt-4">
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-primary"></div>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <!-- Product Details -->
+  <div class="row" *ngIf="product && !loading">
+    <!-- Back Button -->
+    <div class="col-12 mb-3">
+      <button class="btn btn-outline-secondary" (click)="goBack()">
+        <i class="bi bi-arrow-left"></i> Retour aux produits
+      </button>
+    </div>
+
+    <!-- Product Image -->
+    <div class="col-md-6">
+      <div class="card">
+        <img [src]="product.imageUrl" class="img-fluid" [alt]="product.name">
+      </div>
+    </div>
+
+    <!-- Product Information -->
+    <div class="col-md-6">
+      <h1 class="mb-4">{{ product.name }}</h1>
+      
+      <!-- Prix et Stock -->
+      <div class="mb-4">
+        <h2 class="text-primary">{{ product.price | currency:'EUR' }}</h2>
+        <span *ngIf="product.stock > 0" class="badge bg-success">
+          En stock ({{ product.stock }} disponibles)
+        </span>
+        <span *ngIf="product.stock === 0" class="badge bg-danger">
+          Rupture de stock
+        </span>
+      </div>
+
+      <!-- Description -->
+      <div class="mb-4">
+        <p class="text-muted">{{ product.description }}</p>
+      </div>
+
+      <!-- Ajout au panier -->
+      <div class="card p-3 mb-4">
+        <div class="mb-3">
+          <label for="quantity" class="form-label">Quantité</label>
+          <div class="input-group">
+            <button 
+              class="btn btn-outline-secondary" 
+              (click)="decreaseQuantity()"
+              [disabled]="quantity <= 1">
+              <i class="bi bi-dash"></i>
+            </button>
+            
+            <input 
+              type="number" 
+              id="quantity" 
+              class="form-control text-center" 
+              [value]="quantity"
+              (change)="onQuantityChange($event)"
+              min="1" 
+              [max]="product.stock">
+            
+            <button 
+              class="btn btn-outline-secondary" 
+              (click)="increaseQuantity()"
+              [disabled]="quantity >= product.stock">
+              <i class="bi bi-plus"></i>
+            </button>
+          </div>
+        </div>
+
+        <button 
+          class="btn btn-primary btn-lg w-100" 
+          (click)="addToCart()"
+          [disabled]="product.stock === 0 || isAddingToCart">
+          <span *ngIf="isAddingToCart" class="spinner-border spinner-border-sm me-2"></span>
+          <i *ngIf="!isAddingToCart" class="bi bi-cart-plus me-2"></i>
+          {{ isAddingToCart ? 'Ajout en cours...' : 'Ajouter au panier' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,174 @@
+<div class="container mt-4">
+    <div class="row">
+      <!-- Formulaire de checkout -->
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="mb-0">Finaliser la commande</h2>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+              <!-- Adresse de livraison -->
+              <div formGroupName="shippingAddress">
+                <h3 class="mb-3">Adresse de livraison</h3>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Prénom</label>
+                    <input type="text" class="form-control" formControlName="firstName">
+                    <div *ngIf="checkoutForm.get('shippingAddress.firstName')?.invalid && 
+                              checkoutForm.get('shippingAddress.firstName')?.touched" 
+                         class="text-danger">
+                      Prénom requis
+                    </div>
+                  </div>
+  
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Nom</label>
+                    <input type="text" class="form-control" formControlName="lastName">
+                    <div *ngIf="checkoutForm.get('shippingAddress.lastName')?.invalid && 
+                              checkoutForm.get('shippingAddress.lastName')?.touched" 
+                         class="text-danger">
+                      Nom requis
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="mb-3">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" formControlName="email">
+                  <div *ngIf="checkoutForm.get('shippingAddress.email')?.invalid && 
+                            checkoutForm.get('shippingAddress.email')?.touched" 
+                       class="text-danger">
+                    Email invalide
+                  </div>
+                </div>
+  
+                <div class="mb-3">
+                  <label class="form-label">Téléphone</label>
+                  <input type="tel" class="form-control" formControlName="phone">
+                  <div *ngIf="checkoutForm.get('shippingAddress.phone')?.invalid && 
+                            checkoutForm.get('shippingAddress.phone')?.touched" 
+                       class="text-danger">
+                    Numéro de téléphone invalide
+                  </div>
+                </div>
+  
+                <div class="mb-3">
+                  <label class="form-label">Adresse</label>
+                  <input type="text" class="form-control" formControlName="address">
+                  <div *ngIf="checkoutForm.get('shippingAddress.address')?.invalid && 
+                            checkoutForm.get('shippingAddress.address')?.touched" 
+                       class="text-danger">
+                    Adresse requise
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Ville</label>
+                    <input type="text" class="form-control" formControlName="city">
+                    <div *ngIf="checkoutForm.get('shippingAddress.city')?.invalid && 
+                              checkoutForm.get('shippingAddress.city')?.touched" 
+                         class="text-danger">
+                      Ville requise
+                    </div>
+                  </div>
+  
+                  <div class="col-md-3 mb-3">
+                    <label class="form-label">Code postal</label>
+                    <input type="text" class="form-control" formControlName="postalCode">
+                    <div *ngIf="checkoutForm.get('shippingAddress.postalCode')?.invalid && 
+                              checkoutForm.get('shippingAddress.postalCode')?.touched" 
+                         class="text-danger">
+                      Code postal invalide
+                    </div>
+                  </div>
+  
+                  <div class="col-md-3 mb-3">
+                    <label class="form-label">Pays</label>
+                    <select class="form-select" formControlName="country">
+                      <option value="FR">France</option>
+                      <option value="BE">Belgique</option>
+                      <option value="CH">Suisse</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Méthode de paiement -->
+              <div class="mt-4">
+                <h3 class="mb-3">Méthode de paiement</h3>
+                <div class="row">
+                  <div class="col-md-6 mb-3" *ngFor="let method of paymentMethods">
+                    <div class="form-check payment-method">
+                      <input class="form-check-input" 
+                             type="radio" 
+                             [value]="method.id" 
+                             formControlName="paymentMethod"
+                             [id]="method.id">
+                      <label class="form-check-label" [for]="method.id">
+                        <i [class]="'bi ' + method.icon"></i>
+                        {{ method.name }}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Sauvegarder les informations -->
+              <div class="form-check mt-4">
+                <input class="form-check-input" 
+                       type="checkbox" 
+                       formControlName="saveInfo" 
+                       id="saveInfo">
+                <label class="form-check-label" for="saveInfo">
+                  Sauvegarder ces informations pour la prochaine fois
+                </label>
+              </div>
+  
+              <!-- Bouton de soumission -->
+              <div class="d-grid mt-4">
+                <button type="submit" 
+                        class="btn btn-primary btn-lg"
+                        [disabled]="checkoutForm.invalid || submitting">
+                  <span *ngIf="submitting" class="spinner-border spinner-border-sm me-2"></span>
+                  {{ submitting ? 'Traitement en cours...' : 'Confirmer la commande' }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Récapitulatif de la commande -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="mb-0">Récapitulatif</h3>
+          </div>
+          <div class="card-body">
+            <div *ngIf="cart">
+              <div *ngFor="let item of cart.items" class="d-flex justify-content-between mb-2">
+                <span>{{ item.product.name }} (x{{ item.quantity }})</span>
+                <span>{{ item.product.price * item.quantity | currency:'EUR' }}</span>
+              </div>
+              <hr>
+              <div class="d-flex justify-content-between mb-2">
+                <span>Sous-total</span>
+                <span>{{ cart.totalPrice | currency:'EUR' }}</span>
+              </div>
+              <div class="d-flex justify-content-between mb-2">
+                <span>Livraison</span>
+                <span>Gratuite</span>
+              </div>
+              <hr>
+              <div class="d-flex justify-content-between">
+                <strong>Total</strong>
+                <strong>{{ cart.totalPrice | currency:'EUR' }}</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
