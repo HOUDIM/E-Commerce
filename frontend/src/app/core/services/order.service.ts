@@ -21,4 +21,8 @@ export class OrderService {
   getUserOrders(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/user`);
   }
+
+  updateOrder(orderId: string, updateData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${orderId}`, updateData);
+  }
 }

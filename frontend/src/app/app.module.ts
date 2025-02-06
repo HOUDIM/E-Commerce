@@ -22,6 +22,7 @@ import { OrderConfirmationComponent } from './features/orders/order-confirmation
 import { HeaderComponent } from './core/components/header/header.component';
 import { FooterComponent } from './core/components/footer/footer.component';
 import { ClickOutsideDirective } from './shared/directives/click-outside.directive';
+import { StripePaymentComponent } from './features/checkout/stripe-payment/stripe-payment.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { ClickOutsideDirective } from './shared/directives/click-outside.directi
     OrderConfirmationComponent,
     HeaderComponent,
     FooterComponent,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    StripePaymentComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,33 @@
+<div class="card">
+    <div class="card-body">
+      <h3 class="card-title mb-4">Paiement sécurisé</h3>
+  
+      <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label class="form-label">Nom sur la carte</label>
+          <input type="text" class="form-control" formControlName="name">
+        </div>
+  
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" formControlName="email">
+        </div>
+  
+        <div class="mb-3">
+          <label class="form-label">Informations de carte</label>
+          <div #cardElement class="form-control"></div>
+        </div>
+  
+        <div *ngIf="error" class="alert alert-danger">
+          {{ error }}
+        </div>
+  
+        <button type="submit" 
+                class="btn btn-primary w-100" 
+                [disabled]="loading || paymentForm.invalid">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+          Payer {{ amount | currency:'EUR' }}
+        </button>
+      </form>
+    </div>
+  </div>
