@@ -13,6 +13,7 @@ import { ProductAdminComponent } from './features/admin/products/product-admin/p
 import { HomeComponent } from './features/home/home.component';
 import { OrderAdminComponent } from './features/admin/orders/order-admin/order-admin.component';
 import { AdminDashboardComponent } from './features/admin/dashboard/admin-dashboard/admin-dashboard.component';
+import { ProfileComponent } from './features/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,11 @@ const routes: Routes = [
     path: 'admin',
     component: AdminDashboardComponent,
     canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

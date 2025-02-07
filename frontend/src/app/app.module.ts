@@ -30,6 +30,7 @@ import { CategoryAdminComponent } from './features/admin/categories/category-adm
 import { ProductAdminComponent } from './features/admin/products/product-admin/product-admin.component';
 import { OrderAdminComponent } from './features/admin/orders/order-admin/order-admin.component';
 import { AdminDashboardComponent } from './features/admin/dashboard/admin-dashboard/admin-dashboard.component';
+import { ProfileComponent } from './features/profile/profile.component';
 
 
 
@@ -53,7 +54,8 @@ import { AdminDashboardComponent } from './features/admin/dashboard/admin-dashbo
     CategoryAdminComponent,
     ProductAdminComponent,
     OrderAdminComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

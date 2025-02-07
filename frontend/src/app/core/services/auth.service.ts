@@ -37,4 +37,10 @@ export class AuthService {
     const userStr = localStorage.getItem('user');
     return userStr ? JSON.parse(userStr) : null;
   }
+
+  // Ajoutez dans AuthService
+  getCurrentUserId(): string {
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  return user._id;
+}
 }

@@ -1,0 +1,54 @@
+<!-- src/app/features/profile/profile.component.html -->
+<div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h3>Mon Profil</h3>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+              <!-- Informations de base -->
+              <div class="mb-3">
+                <label class="form-label">Nom d'utilisateur</label>
+                <input type="text" class="form-control" formControlName="username">
+              </div>
+  
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" formControlName="email">
+              </div>
+  
+              <hr>
+  
+              <!-- Changement de mot de passe -->
+              <h4>Changer le mot de passe</h4>
+              
+              <div class="mb-3">
+                <label class="form-label">Mot de passe actuel</label>
+                <input type="password" class="form-control" formControlName="currentPassword">
+              </div>
+  
+              <div class="mb-3">
+                <label class="form-label">Nouveau mot de passe</label>
+                <input type="password" class="form-control" formControlName="newPassword">
+              </div>
+  
+              <div class="mb-3">
+                <label class="form-label">Confirmer le mot de passe</label>
+                <input type="password" class="form-control" formControlName="confirmPassword">
+                <div *ngIf="profileForm.errors?.['mismatch']" class="text-danger">
+                  Les mots de passe ne correspondent pas
+                </div>
+              </div>
+  
+              <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid || loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+                Mettre à jour
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
