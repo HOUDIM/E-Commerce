@@ -1,0 +1,102 @@
+<!-- src/app/features/admin/promotions/promotions-admin.component.html -->
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <h3>{{editingPromotion ? 'Modifier' : 'Créer'}} une promotion</h3>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="promotionForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <label class="form-label">Code</label>
+                <input type="text" class="form-control" formControlName="code">
+              </div>
+  
+              <div class="mb-3">
+                <label class="form-label">Type de réduction</label>
+                <select class="form-select" formControlName="discountType">
+                  <option value="percentage">Pourcentage</option>
+                  <option value="fixed">Montant fixe</option>
+                </select>
+              </div>
+  
+              <div class="mb-3">
+                <label class="form-label">Valeur de la réduction</label>
+                <input type="number" class="form-control" formControlName="discountValue">
+              </div>
+  
+              <div class="mb-3">
+                <label class="form-label">Date de début</label>
+                <input type="date" class="form-control" formControlName="startDate">
+              </div>
+  
+              <div class="mb-3">
+                <label class="form-label">Date de fin</label>
+                <input type="date" class="form-control" formControlName="endDate">
+              </div>
+  
+              <div class="mb-3">
+                <label class="form-label">Achat minimum</label>
+                <input type="number" class="form-control" formControlName="minPurchase">
+              </div>
+  
+              <div class="mb-3">
+                <label class="form-label">Utilisations maximum</label>
+                <input type="number" class="form-control" formControlName="maxUses">
+              </div>
+  
+              <button type="submit" class="btn btn-primary w-100" [disabled]="promotionForm.invalid">
+                {{editingPromotion ? 'Modifier' : 'Créer'}}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h3>Liste des promotions</h3>
+          </div>
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Réduction</th>
+                  <th>Période</th>
+                  <th>État</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let promo of promotions">
+                  <td>{{promo.code}}</td>
+                  <td>
+                    {{promo.discountType === 'percentage' ? promo.discountValue + '%' : promo.discountValue + '€'}}
+                  </td>
+                  <td>
+                    {{promo.startDate | date}} - {{promo.endDate | date}}
+                  </td>
+                  <td>
+                    <span [class]="getPromotionStatusClass(promo)">
+                      {{getPromotionStatus(promo)}}
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary me-2" (click)="editPromotion(promo)">
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" (click)="deletePromotion(promo._id)">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -33,6 +33,7 @@ import { AdminDashboardComponent } from './features/admin/dashboard/admin-dashbo
 import { ProfileComponent } from './features/profile/profile.component';
 import { UsersAdminComponent } from './features/admin/users/users-admin/users-admin.component';
 import { ReviewsComponent } from './features/reviews/reviews.component';
+import { PromotionsAdminComponent } from './features/admin/promotions/promotions-admin/promotions-admin.component';
 
 
 
@@ -59,7 +60,8 @@ import { ReviewsComponent } from './features/reviews/reviews.component';
     AdminDashboardComponent,
     ProfileComponent,
     UsersAdminComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    PromotionsAdminComponent
   ],
   imports: [
     BrowserModule,
