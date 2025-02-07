@@ -28,6 +28,7 @@ import { ProductCardComponent } from './shared/components/product-card/product-c
 import { CategoryListComponent } from './features/categories/category-list/category-list.component';
 import { CategoryAdminComponent } from './features/admin/categories/category-admin/category-admin.component';
 import { ProductAdminComponent } from './features/admin/products/product-admin/product-admin.component';
+import { OrderAdminComponent } from './features/admin/orders/order-admin/order-admin.component';
 
 
 
@@ -49,7 +50,8 @@ import { ProductAdminComponent } from './features/admin/products/product-admin/p
     ProductCardComponent,
     CategoryListComponent,
     CategoryAdminComponent,
-    ProductAdminComponent
+    ProductAdminComponent,
+    OrderAdminComponent
   ],
   imports: [
     BrowserModule,

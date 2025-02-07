@@ -11,6 +11,7 @@ import { CategoryAdminComponent } from './features/admin/categories/category-adm
 import { AdminGuard } from './core/guards/admin.guard';
 import { ProductAdminComponent } from './features/admin/products/product-admin/product-admin.component';
 import { HomeComponent } from './features/home/home.component';
+import { OrderAdminComponent } from './features/admin/orders/order-admin/order-admin.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,11 @@ const routes: Routes = [
   {
     path: 'admin/products',
     component: ProductAdminComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'admin/orders',
+    component: OrderAdminComponent,
     canActivate: [AuthGuard, AdminGuard]
   }
 ];
