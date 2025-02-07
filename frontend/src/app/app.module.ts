@@ -31,6 +31,7 @@ import { ProductAdminComponent } from './features/admin/products/product-admin/p
 import { OrderAdminComponent } from './features/admin/orders/order-admin/order-admin.component';
 import { AdminDashboardComponent } from './features/admin/dashboard/admin-dashboard/admin-dashboard.component';
 import { ProfileComponent } from './features/profile/profile.component';
+import { UsersAdminComponent } from './features/admin/users/users-admin/users-admin.component';
 
 
 
@@ -55,7 +56,8 @@ import { ProfileComponent } from './features/profile/profile.component';
     ProductAdminComponent,
     OrderAdminComponent,
     AdminDashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    UsersAdminComponent
   ],
   imports: [
     BrowserModule,

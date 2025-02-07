@@ -14,6 +14,7 @@ import { HomeComponent } from './features/home/home.component';
 import { OrderAdminComponent } from './features/admin/orders/order-admin/order-admin.component';
 import { AdminDashboardComponent } from './features/admin/dashboard/admin-dashboard/admin-dashboard.component';
 import { ProfileComponent } from './features/profile/profile.component';
+import { UsersAdminComponent } from './features/admin/users/users-admin/users-admin.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,11 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'admin/users',
+    component: UsersAdminComponent,
+    canActivate: [AuthGuard, AdminGuard]
   }
 ];
 
