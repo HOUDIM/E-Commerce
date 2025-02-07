@@ -1,0 +1,47 @@
+<!-- src/app/features/reviews/reviews.component.html -->
+<div class="reviews-section">
+    <!-- Form for new review -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h4>Ajouter un avis</h4>
+        <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+          <div class="mb-3">
+            <label class="form-label">Note</label>
+            <div class="rating">
+              <input type="number" formControlName="rating" min="1" max="5" class="form-control">
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label">Commentaire</label>
+            <textarea class="form-control" formControlName="comment" rows="3"></textarea>
+          </div>
+  
+          <button type="submit" class="btn btn-primary" [disabled]="reviewForm.invalid">
+            Publier
+          </button>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Reviews list -->
+    <div class="reviews-list">
+      <h4>Avis ({{reviews.length}})</h4>
+      
+      <div *ngFor="let review of reviews" class="card mb-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div>
+              <div class="stars">
+                <i *ngFor="let star of [].constructor(review.rating)" class="bi bi-star-fill text-warning"></i>
+                <i *ngFor="let star of [].constructor(5 - review.rating)" class="bi bi-star text-warning"></i>
+              </div>
+              <h6 class="mt-2">{{review.user.username}}</h6>
+            </div>
+            <small class="text-muted">{{review.createdAt | date}}</small>
+          </div>
+          <p class="mt-2">{{review.comment}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
