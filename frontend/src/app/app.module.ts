@@ -29,6 +29,7 @@ import { CategoryListComponent } from './features/categories/category-list/categ
 import { CategoryAdminComponent } from './features/admin/categories/category-admin/category-admin.component';
 import { ProductAdminComponent } from './features/admin/products/product-admin/product-admin.component';
 import { OrderAdminComponent } from './features/admin/orders/order-admin/order-admin.component';
+import { AdminDashboardComponent } from './features/admin/dashboard/admin-dashboard/admin-dashboard.component';
 
 
 
@@ -51,7 +52,8 @@ import { OrderAdminComponent } from './features/admin/orders/order-admin/order-a
     CategoryListComponent,
     CategoryAdminComponent,
     ProductAdminComponent,
-    OrderAdminComponent
+    OrderAdminComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,

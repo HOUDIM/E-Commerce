@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -24,5 +25,9 @@ export class OrderService {
 
   updateOrder(orderId: string, updateData: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/${orderId}`, updateData);
+  }
+
+  getOrderStatistics(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/statistics`);
   }
 }

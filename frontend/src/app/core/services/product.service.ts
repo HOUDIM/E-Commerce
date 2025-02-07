@@ -44,4 +44,8 @@ export class ProductService {
   getNewArrivals(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.apiUrl}/new-arrivals`);
   }
+
+  getProductStatistics(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/statistics`);
+  }
 }
