@@ -40,7 +40,11 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('user', JSON.stringify(response.user));
           
           this.toastr.success('Connexion réussie');
-          this.router.navigate(['/products']);
+          if (this.authService.isAdmin()) {
+            this.router.navigate(['/admin']);
+          } else {
+          this.router.navigate(['/']);
+          }
         },
         error: (err) => {
           this.loading = false;

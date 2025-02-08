@@ -6,58 +6,74 @@ import { Subscription } from 'rxjs';
 import { Cart } from '../../../shared/models/cart.model';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+ selector: 'app-header',
+ templateUrl: './header.component.html',
+ styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  isLoggedIn = false;
-  cart: Cart | null = null;
-  showMiniCart = false;
-  private cartSubscription: Subscription = new Subscription();
+ isLoggedIn = false;
+ isAdmin = false;
+ cart: Cart | null = null;
+ cartItemCount = 0;
+ showMiniCart = false;
+ private subscriptions = new Subscription();
 
-  constructor(
-    private authService: AuthService,
-    private cartService: CartService,
-    private router: Router
-  ) {}
+ constructor(
+   private authService: AuthService,
+   private cartService: CartService,
+   private router: Router
+ ) {}
 
-  ngOnInit(): void {
-    this.isLoggedIn = this.authService.isAuthenticated();
-    
-    this.cartSubscription = this.cartService.cart$.subscribe(cart => {
-      this.cart = cart;
-    });
-  }
+ ngOnInit(): void {
+   this.initializeSubscriptions();
+ }
 
-  toggleMiniCart(): void {
-    this.showMiniCart = !this.showMiniCart;
-  }
+ private initializeSubscriptions(): void {
+   // Auth subscription
+   this.subscriptions.add(
+     this.authService.authState$.subscribe(
+       isAuthenticated => {
+         this.isLoggedIn = isAuthenticated;
+         this.isAdmin = this.authService.isAdmin();
+       }
+     )
+   );
 
-  removeFromCart(productId: string): void {
-    this.cartService.removeFromCart(productId).subscribe({
-      next: () => {
-        // Le cart$ observable mettra automatiquement à jour l'interface
-      }
-    });
-  }
+   // Cart subscription
+   this.subscriptions.add(
+     this.cartService.cart$.subscribe(
+       cart => {
+         this.cart = cart;
+         this.cartItemCount = cart.totalItems;
+       }
+     )
+   );
+ }
 
-  goToCheckout(): void {
-    this.showMiniCart = false;
-    this.router.navigate(['/checkout']);
-  }
+ toggleMiniCart(): void {
+   this.showMiniCart = !this.showMiniCart;
+ }
 
-  goToCart(): void {
-    this.showMiniCart = false;
-    this.router.navigate(['/cart']);
-  }
+ removeFromCart(productId: string): void {
+   this.cartService.removeFromCart(productId).subscribe();
+ }
 
-  logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
-  }
+ goToCheckout(): void {
+   this.showMiniCart = false;
+   this.router.navigate(['/checkout']);
+ }
 
-  ngOnDestroy(): void {
-    this.cartSubscription.unsubscribe();
-  }
+ goToCart(): void {
+   this.showMiniCart = false;
+   this.router.navigate(['/cart']);
+ }
+
+ logout(): void {
+   this.authService.logout();
+   this.router.navigate(['/']);
+ }
+
+ ngOnDestroy(): void {
+   this.subscriptions.unsubscribe();
+ }
 }
